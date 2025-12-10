@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Nhà Thông Minh AI</title>
+
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#667eea" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div id="login-page">
+      <h1>🚀 Smart Home AI IoT</h1>
+      <input type="text" id="username" placeholder="👤 Admin" />
+      <input type="password" id="password" placeholder="🔒 Password" />
+      <button id="login-btn">Đăng nhập</button>
+    </div>
+
+    <div id="dashboard-page" style="display: none">
+      <header>
+        <div class="header-left">
+          <span id="greeting">Xin chào!</span>
+        </div>
+        <div class="header-right">
+          <button id="export-btn" class="btn-export">
+            📥 Xuất Báo Cáo CSV
+          </button>
+          <span id="time-date-info">--</span>
+        </div>
+      </header>
+
+      <main>
+        <div class="dashboard-layout">
+          <div class="charts-column">
+            <div class="card chart-container">
+              <h2>📈 Nhiệt Độ & AI Dự Báo</h2>
+              <canvas id="temperature-chart"></canvas>
+            </div>
+            <div class="card chart-container">
+              <h2>📊 Độ Ẩm</h2>
+              <canvas id="humidity-chart"></canvas>
+            </div>
+          </div>
+
+          <div class="values-column">
+            <div class="card value-card temperature-card">
+              <h2>🌡️ Nhiệt Độ</h2>
+              <p class="data-value" id="temperature-value">-- °C</p>
+
+              <div class="ai-box">
+                <span>🤖 AI Dự báo kế tiếp: </span>
+                <span
+                  id="ai-temp-predict"
+                  style="font-weight: bold; color: yellow"
+                  >--</span
+                >
+                <span>°C</span>
+              </div>
+
+              <div class="alert-indicator" id="temperature-alert">
+                Đang đo...
+              </div>
+            </div>
+
+            <div class="card value-card humidity-card">
+              <h2>💧 Độ Ẩm</h2>
+              <p class="data-value" id="humidity-value">-- %</p>
+              <div class="alert-indicator" id="humidity-alert">Đang đo...</div>
+            </div>
+
+            <div class="card value-card light-card">
+              <h2>☀️ Ánh Sáng</h2>
+              <p class="data-value" id="light-value">-- lux</p>
+            </div>
+
+            <div class="card light-control-card">
+              <h2>💡 Điều Khiển Đèn</h2>
+              <p id="status-1">OFF</p>
+              <label class="switch">
+                <input type="checkbox" id="toggle-1" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="card fan-control-card">
+              <h2>💨 Điều Khiển Quạt</h2>
+              <p id="status-fan">OFF</p>
+              <label class="switch">
+                <input type="checkbox" id="toggle-fan" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="message-column">
+            <div class="card message-card">
+              <h2>📢 Nhật Ký Hoạt Động</h2>
+              <div id="message-container">
+                <p>Chưa có thông báo mới...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
