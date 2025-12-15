@@ -2,29 +2,29 @@
 import numpy as np
 from sklearn.linear_model import LinearRegression
 
-class TemperaturePredictor:
+class Predictor:
     def __init__(self):
         self.model = LinearRegression()
 
     def predict_next(self, history_data):
         """
-        Dự đoán nhiệt độ tiếp theo dựa trên lịch sử.
-        history_data: List các dict [{'value': '25', ...}, ...] lấy từ Adafruit IO
+        Dự đoán giá trị tiếp theo.
+        history_data: List các dict [{'value': '25', ...}]
         """
-        # Cần ít nhất 5 điểm dữ liệu để dự đoán
-        if not history_data or len(history_data) < 5:
+        # Cần ít nhất 3 điểm dữ liệu để dự đoán
+        if not history_data or len(history_data) < 3:
             return None
 
         try:
             # 1. Tiền xử lý dữ liệu
-            # Lấy giá trị value, chuyển sang float
-            # Dữ liệu từ Adafruit thường mới nhất trước -> đảo ngược lại để thành chuỗi thời gian tăng dần
-            y = np.array([float(item.value) for item in history_data][::-1])
+            # Đảo ngược list vì Adafruit trả về Mới nhất -> Cũ nhất
+            values = [float(item.value) for item in history_data][::-1]
+            y = np.array(values)
             
-            # X là trục thời gian giả lập (0, 1, 2, ...)
+            # X là trục thời gian (0, 1, 2, ...)
             X = np.array(range(len(y))).reshape(-1, 1)
 
-            # 2. Huấn luyện model (Online Learning)
+            # 2. Huấn luyện model
             self.model.fit(X, y)
 
             # 3. Dự đoán bước tiếp theo (index = len(y))
